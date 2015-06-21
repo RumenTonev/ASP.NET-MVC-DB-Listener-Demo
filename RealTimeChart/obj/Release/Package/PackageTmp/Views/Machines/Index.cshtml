@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<RealTimeChart.Models.MachineShortModel>
+@foreach (var machine in Model)
+{
+    <div>
+        <strong>
+            @machine.Name
+        </strong>
+    </div>
+    @Ajax.ActionLink("See monitorng", "Chart", "Machines", new { id = machine.Id },
+        new AjaxOptions
+            {
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "book-content"
+            })
+
+    <br />
+}
+<div id="timeDisplay"></div>
+<a onclick="getServerTime()" href="#" class="btn btn-primary">Get server time</a>
+<script>
+    function getServerTime() {
+        $("#timeDisplay").html("Loading...");
+        $("#timeDisplay").load("/Home/Demo");
+    }
+</script>
+
+
+
